@@ -9,7 +9,8 @@ import java.util.ArrayList;
  * comuns, como atributos e implementações de métodos como equals() e toString().
  * Entretanto, cada função possui sua própria implementação do hash. Por esse motivo, foi 
  * utilizada uma classe abstrata em vez de uma interface.
- * 
+ *
+ * Escolhemos encadeamento fechado como método de lidar com as colisões, pois não precisaremos lidar com Resize e Rehash. 
  */
 public abstract class FuncaoHash {
 
@@ -18,8 +19,8 @@ public abstract class FuncaoHash {
      */
     private int colisoes;
     private int espelhamento; // necessidade de decidir como vamos medir isso.
-    private ArrayList<Integer>[] tabela;
-    protected int size; 
+    private ArrayList<InfoObjeto>[] tabela;
+    protected int size; // escolher um size.
     protected String nomeFunc;
 
     public FuncaoHash(int size){
@@ -29,23 +30,68 @@ public abstract class FuncaoHash {
         this.tabela = new ArrayList[size];
     }
 
-    public void put(int chave, int valor){
+    public void put(int chave, String valor){
         int hash = hash(chave);
+        ArrayList<InfoObjeto> lista = this.tabela[hash];
+
+        InfoObjeto obj = new InfoObjeto(chave, valor);
+        
+        if(lista == null)
+        {
+            lista = new ArrayList<InfoObjeto>();
+            lista.add(obj);
+            this.tabela[hash] = lista;
+        }
+        else
+        {
+            for(int i = 0; i < lista.size(); i++){
+                if(lista.get(i).getChave() == chave){
+                    lista.set(i, obj);
+                    return;
+                }
+            }
+            this.colisoes++;
+            lista.add(obj);
+        }
     }
 
-    public void remove(int chave){
+    public InfoObjeto remove(int chave){
+        int hash = hash(chave);
+        ArrayList<InfoObjeto> lista = this.tabela[hash];
+        InfoObjeto retorno = null;
 
+        for(int i = 0; i < lista.size(); i++){
+            if(lista.get(i).getChave() == chave){
+                retorno = lista.remove(i);
+                break;
+            }
+        }
+
+        return retorno;
     }
 
-    public int get(int chave){
+    public InfoObjeto get(int chave){
         int hash = hash(chave);
-        return 0;
+        ArrayList<InfoObjeto> lista = this.tabela[hash];
+        InfoObjeto retorno = null;
+        if(lista != null)
+        {
+            for(InfoObjeto s : lista)
+            {
+                if(s.getChave() == chave){
+                    retorno = s;
+                    break;
+                }
+            }
+        }
+
+        return retorno;
     }
 
     protected abstract int hash(int chave);
 
     @Override
-    public String toString(){ //Informação textual das colisões de cada função hash.
+    public String toString(){ //Medição da função hash.
         return
         "Função Hash: " + this.nomeFunc + "\n" + 
         "Colisoes: " + this.colisoes + "\n" +
