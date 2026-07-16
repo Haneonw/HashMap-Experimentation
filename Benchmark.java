@@ -1,5 +1,6 @@
 public class Benchmark{
     public static void main(String[] args){
+        
         FuncaoHash modular = new Modular(10);
         FuncaoHash multiplicativa = new Multiplicativa(10);
 

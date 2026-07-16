@@ -1,7 +1,7 @@
 public class Multiplicativa extends FuncaoHash{
 
     //Constante 
-    private static final double A = (Math.sqrt(5) - 1 / 2);
+    private static final double A = (Math.sqrt(5) - 1) / 2;
 
     public Multiplicativa(int size){
         super(size);
@@ -10,14 +10,14 @@ public class Multiplicativa extends FuncaoHash{
 
     @Override
     protected int hash(int chave) {
-        //passo 1: k * A
+        //passo 1: multiplica a chave pela constante A
         double produto = chave * A;
 
-        //passo 2 parte fracionária 
-        double fracao = produto - Math.floor(produto);
+        //passo 2: extrai apenas parte fracionária de chave * A
+        double parteFracionária = produto - Math.floor(produto);
 
-        //passo 3 e 4: m * fracao(kA), depois a parte inteira
-        int indice = (int) Math.floor(this.size * fracao);
+        //passo 3 e 4: multiplica pelo tamanho da tabela e arredonda para baixo
+        int indice = (int) Math.floor(this.size * parteFracionária);
         
         return indice;
     }
