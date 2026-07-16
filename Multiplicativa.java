@@ -16,6 +16,9 @@ public class Multiplicativa extends FuncaoHash{
     
     /**
      * Constante sugerida por Knuth: A = (sqrt(5) - 1) / 2 ≈ 0.6180339887
+     * 
+     * Esse valor tem relação com à razão áurea e possui propriedades
+     * matemátticas que favorecem uma distribuição mais uniforme das chaves.
      */
     private static final double A = (Math.sqrt(5) - 1) / 2;
 
