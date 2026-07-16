@@ -1,6 +1,22 @@
+/**
+* Multiplicativa
+* 
+* Implementação do método da multiplicação seguindo a aplicação da fórmula
+* proposta por Donald Knuth, a fórmula:
+* 
+* indiceHash = floor(m * parteFracionaria(k * A))
+* 
+* onde:
+* k = chave
+* m = tamanho da tabela
+* A = constante real entre 0 e 1 
+* parteFracionária(x) = x - floor(x) 
+*/
 public class Multiplicativa extends FuncaoHash{
-
-    //Constante 
+    
+    /**
+     * Constante sugerida por Knuth: A = (sqrt(5) - 1) / 2 ≈ 0.6180339887
+     */
     private static final double A = (Math.sqrt(5) - 1) / 2;
 
     public Multiplicativa(int size){
