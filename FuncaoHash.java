@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * Entretanto, cada função possui sua própria implementação do hash. Por esse motivo, foi 
  * utilizada uma classe abstrata em vez de uma interface.
  *
- * Escolhemos encadeamento fechado como método de lidar com as colisões, pois não precisaremos lidar com Resize e Rehash. 
+ * Escolhemos endereçamento fechado como método de lidar com as colisões, pois não precisaremos lidar com Resize e Rehash. 
  */
 public abstract class FuncaoHash {
 
