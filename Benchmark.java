@@ -1,8 +1,8 @@
 public class Benchmark{
     public static void main(String[] args){
         
-        FuncaoHash modular = new Modular(10);
-        FuncaoHash multiplicativa = new Multiplicativa(10);
+        FuncaoHash modular = new Modular(4);
+        FuncaoHash multiplicativa = new Multiplicativa(4);
 
         modular.put(0, null);
         modular.put(1, null);
@@ -18,7 +18,7 @@ public class Benchmark{
         multiplicativa.put(25, null);
         multiplicativa.put(11, null);
 
-        System.out.print(modular.toString());
+        System.out.println(modular.toString());
         System.out.println(multiplicativa.toString());
     }
 }
