@@ -25,10 +25,10 @@ public class MeioDoQuadrado extends FuncaoHash{
         // Passo 2: Calcula o quadrado da chave.
         long quadrado = valor * valor;
 
-        // Passo 3: Extrai bits centrais do quadrado, deslocando 16 bits à direita e aplicando uma máscara para obter os 32 bits menos significativos
-        int meio = (int)((quadrado >>> 16) & 0xFFFFFFFFL);
+        // Passo 3: Extrai bits centrais do quadrado, deslocando 16 bits à direita e descartando os 16 bits menos significativos e preservando os 32 bits seguintes.
+        long meio = (int)((quadrado >>> 16) & 0xFFFFFFFFL);
 
         // Passo 4: Retorna o índice hash, garantindo que esteja dentro do tamanho da tabela.
-        return Math.floorMod(meio, this.size);
+        return (int) Math.floorMod(meio, this.size);
     }
 }
