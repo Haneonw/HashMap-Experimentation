@@ -13,7 +13,7 @@ public class Modular extends FuncaoHash{
      */
     @Override
     protected int hash(int chave) {
-        return chave % this.size;
+        return Math.floorMod(chave, this.size);
     }
 }
 

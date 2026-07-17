@@ -9,6 +9,7 @@ import java.util.ArrayList;
  * comuns, como atributos e implementações de métodos como equals() e toString().
  * Entretanto, cada função possui sua própria implementação do hash. Por esse motivo, foi 
  * utilizada uma classe abstrata em vez de uma interface.
+ * Uma colisão é registrada sempre que uma nova chave distinta é inserida em um bucket que já contém pelo menos um elemento.
  *
  * Escolhemos endereçamento fechado como método de lidar com as colisões, pois não precisaremos lidar com Resize e Rehash. 
  */
@@ -21,9 +22,13 @@ public abstract class FuncaoHash {
     private ArrayList<InfoObjeto>[] tabela;
     private int[] distribuicao;
     protected int size; // escolher um size.
+    protected int numElementos; // número de elementos inseridos na tabela. útil para saber fator de carga.
     protected String nomeFunc;
 
     public FuncaoHash(int size){
+        if(size <= 0){
+            throw new IllegalArgumentException("Tamanho deve ser maior que 0");
+        }
         this.colisoes = 0;
         this.size = size;
         this.distribuicao = new int[size];
@@ -62,9 +67,13 @@ public abstract class FuncaoHash {
         ArrayList<InfoObjeto> lista = this.tabela[hash];
         InfoObjeto retorno = null;
 
+        if(lista == null){
+            return null;
+        }
         for(int i = 0; i < lista.size(); i++){
             if(lista.get(i).getChave() == chave){
                 retorno = lista.remove(i);
+                this.distribuicao[hash]--;
                 break;
             }
         }
@@ -109,7 +118,9 @@ public abstract class FuncaoHash {
         }
 
         double desvioPadrão = Math.sqrt(somaDesvio/this.size);
-
+        if(media == 0){
+            return 0.0;
+        }
         return desvioPadrão / media;
     }
 
