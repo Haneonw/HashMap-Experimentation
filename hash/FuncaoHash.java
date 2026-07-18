@@ -1,3 +1,4 @@
+package hash;
 import java.util.ArrayList;
 
 /**
@@ -124,13 +125,29 @@ public abstract class FuncaoHash {
         return desvioPadrão / media;
     }
 
+    private int maiorCadeia(){
+        int maior = 0;
+        for(ArrayList<InfoObjeto> lista : this.tabela )
+        {
+            if(lista != null && lista.size() > maior){
+                maior = lista.size();
+            }
+        }
+
+        return maior;
+    }
+
     protected abstract int hash(int chave);
 
     @Override
     public String toString(){ //Medição da função hash.
-        return
-        "Função Hash: " + this.nomeFunc + "\n" + 
+        return "\n" +
         "Colisoes: " + this.colisoes + "\n" +
-        "Coeficiente de variação: " +  String.format("%.2f", espalhamento()*100) + "%\n";
+        "Coeficiente de variação: " +  String.format("%.2f", espalhamento()*100) + "%\n" +
+        "Maior Cadeia: " + maiorCadeia();
+    }
+
+    public String getNomeFunc() {
+        return nomeFunc;
     }
 }

@@ -1,3 +1,4 @@
+package hash;
 public class InfoObjeto {
     private int chave;
     private String info;

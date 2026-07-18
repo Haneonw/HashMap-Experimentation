@@ -1,4 +1,7 @@
+package hash;
 /**
+ * Meio Do Quadrado
+ * 
  * Implementação da função hash utilizando o método do meio do quadrado.
  * 
  * A chave é elevada ao quadrado e uma região central dos bits do
@@ -8,9 +11,8 @@
  */
 public class MeioDoQuadrado extends FuncaoHash {
     public MeioDoQuadrado(int size){
-
         super(size);
-
+        this.nomeFunc = "Meio Do Quadrado";
     }
 
     /**
