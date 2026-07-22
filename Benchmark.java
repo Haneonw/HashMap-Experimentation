@@ -2,14 +2,14 @@ import hash.*;
 
 public class Benchmark{
     public static void main(String[] args){
+        int tamanho = 10;
         
         FuncaoHash modular = new Modular(4);
         FuncaoHash multiplicativa = new Multiplicativa(4);
         FuncaoHash meioDoQuadrado = new MeioDoQuadrado(4);
         FuncaoHash Universal = new Universal(4);
-        FuncaoHash Folding = new Folding(4);
         int[] chaves = {0, 1, 5, 15, 25,11 ,13 ,41 ,23 ,21 ,1 ,2 ,432};
-        FuncaoHash[] funcoes = {modular, multiplicativa, meioDoQuadrado, Universal, Folding};
+        FuncaoHash[] funcoes = {modular, multiplicativa, meioDoQuadrado, Universal};
 
         for(FuncaoHash funcao: funcoes){
             for(int chave: chaves){

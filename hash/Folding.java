@@ -7,7 +7,6 @@ public class Folding extends FuncaoHash{
 
     public Folding(int size){
         super(size);
-        this.nomeFunc = "Folding";
 
         this.dig = Integer.toString(size - 1).length();
         this.base = (int) Math.pow(10, this.dig);

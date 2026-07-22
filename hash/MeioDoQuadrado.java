@@ -12,7 +12,6 @@ package hash;
 public class MeioDoQuadrado extends FuncaoHash {
     public MeioDoQuadrado(int size){
         super(size);
-        this.nomeFunc = "Meio Do Quadrado";
     }
 
     /**
