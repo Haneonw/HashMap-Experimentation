@@ -42,6 +42,8 @@ public class Benchmark{
             System.out.println(funcao);
         }
         System.out.println();
+
+        entrada.close();
    }
 
     private static ArrayList<Integer> carregarChaves(String arquivo) throws IOException
@@ -54,6 +56,8 @@ public class Benchmark{
         while((linha = arq.readLine()) != null && !linha.isEmpty()){
              chaves.add(Integer.parseInt(linha));
         }
+
+        arq.close();
 
         return chaves;
    }
