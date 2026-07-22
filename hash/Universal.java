@@ -25,8 +25,6 @@ public class Universal extends FuncaoHash {
     public Universal(int size) {
         super(size);
 
-        this.nomeFunc = "Universal";
-
         Random rand = new Random();
 
         // Definir a, inteiro aleatório entre 1 e p−1.

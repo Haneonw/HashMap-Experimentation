@@ -10,7 +10,9 @@ package hash;
  */
 
 public class MurmurHash3 extends FuncaoHash {
-    this.nomeFunc = "MurmurHash3";
+    public MurmurHash3(int size) {
+        super(size);
+    }
 
     // Constantes de mistura específicas para a versão MurmurHash3
     private final int C1 = 0xcc9e2d51;
@@ -18,10 +20,6 @@ public class MurmurHash3 extends FuncaoHash {
 
     //Utiliza uma semente fixa tendo em vista que o objetivo é apenas comparar a função de hash com as outras implementações
     private final int seed = 0;
-
-    public MurmurHash3(int size) {
-        super(size);
-    }
 
     /**
      * Calcula o índice hash da chave utilizando o algoritmo MurmurHash3.
@@ -57,5 +55,5 @@ public class MurmurHash3 extends FuncaoHash {
 
         // Passo 6: Retorna o índice hash, garantindo que esteja dentro do tamanho da tabela.
         return Math.floorMod(hash, this.size);
-
+    }
 }

@@ -12,7 +12,6 @@ package hash;
 public class Modular extends FuncaoHash{
     public Modular(int size){
         super(size);
-        this.nomeFunc = "Modular";
     }
 
     @Override

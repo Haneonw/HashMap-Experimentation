@@ -12,19 +12,19 @@ import java.util.ArrayList;
  * utilizada uma classe abstrata em vez de uma interface.
  * Uma colisão é registrada sempre que uma nova chave distinta é inserida em um bucket que já contém pelo menos um elemento.
  *
- * Escolhemos endereçamento fechado como método de lidar com as colisões, pois não precisaremos lidar com Resize e Rehash. 
+ * Foi utilizado encadeamento separado, também denominado endereçamento fechado,
+ * como método de lidar com as colisões, pois não precisaremos lidar com Resize e Rehash. 
  */
 public abstract class FuncaoHash {
 
     /**
-     * Vamos medir colisões, espelhamento. Seria interessante pesquisar sobre efeito avalanche caso haja tempo e como bonus adicionar o tempo de exec, por mais que joão arthur falar q não faz mt sentido.
+     * Vamos medir colisões, espalhamento. Seria interessante pesquisar sobre efeito avalanche caso haja tempo e como bonus adicionar o tempo de exec, por mais que joão arthur falar q não faz mt sentido.
      */
     private int colisoes;
     private ArrayList<InfoObjeto>[] tabela;
     private int[] distribuicao;
     protected int size; // escolher um size.
     protected int numElementos; // número de elementos inseridos na tabela. útil para saber fator de carga.
-    protected String nomeFunc;
 
     public FuncaoHash(int size){
         if(size <= 0){
@@ -42,12 +42,12 @@ public abstract class FuncaoHash {
 
         InfoObjeto obj = new InfoObjeto(chave, valor);
                 
-        if(lista == null)
-        {
+        if(lista == null) {
             lista = new ArrayList<InfoObjeto>();
             lista.add(obj);
             this.tabela[hash] = lista;
             this.distribuicao[hash]++;
+            this.numElementos++;
         }
         else
         {
@@ -60,6 +60,7 @@ public abstract class FuncaoHash {
             this.colisoes++;
             lista.add(obj);
             this.distribuicao[hash]++;
+            this.numElementos++;
         }
     }
 
@@ -75,6 +76,7 @@ public abstract class FuncaoHash {
             if(lista.get(i).getChave() == chave){
                 retorno = lista.remove(i);
                 this.distribuicao[hash]--;
+                this.numElementos--;
                 break;
             }
         }
@@ -124,6 +126,25 @@ public abstract class FuncaoHash {
         }
         return desvioPadrão / media;
     }
+    public int getColisoes(){
+        return this.colisoes;
+    }
+
+    public double getCoeficienteVariacao(){
+        return espalhamento();
+    }
+
+    public int getNumElementos(){
+        return this.numElementos;
+    }
+
+    public double getFatorCarga(){
+        return (double) this.numElementos / this.size;
+    }
+
+    public int getMaiorCadeia(){
+        return maiorCadeia();
+    }
 
     private int maiorCadeia(){
         int maior = 0;
@@ -142,12 +163,15 @@ public abstract class FuncaoHash {
     @Override
     public String toString(){ //Medição da função hash.
         return "\n" +
-        "Colisoes: " + this.colisoes + "\n" +
-        "Coeficiente de variação: " +  String.format("%.2f", espalhamento()*100) + "%\n" +
-        "Maior Cadeia: " + maiorCadeia();
+        "Função: " + getNomeFunc() + "\n" +
+        "Elementos: " + this.numElementos + "\n" +
+        "Colisões: " + this.colisoes + "\n" +
+        "Coeficiente de variação: " +  String.format("%.2f", getCoeficienteVariacao() * 100) + "%\n" +
+        "Fator de carga: " + String.format("%.2f", getFatorCarga()) + "\n" +
+        "Maior Cadeia: " + getMaiorCadeia() + "\n";
     }
 
     public String getNomeFunc() {
-        return nomeFunc;
+        return getClass().getSimpleName();
     }
 }
