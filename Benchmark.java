@@ -41,7 +41,6 @@ public class Benchmark{
             System.out.println("\n" + "=".repeat(20) + titulo + "=".repeat(20));
             System.out.println(funcao);
         }
-        System.out.println();
 
         entrada.close();
    }
@@ -52,9 +51,20 @@ public class Benchmark{
 
         ArrayList<Integer> chaves = new ArrayList<>();
 
+        String tipo = arquivo.substring(arquivo.length() - 3);
+
         String linha;
-        while((linha = arq.readLine()) != null && !linha.isEmpty()){
-             chaves.add(Integer.parseInt(linha));
+        if(tipo.equals("txt")){
+            while((linha = arq.readLine()) != null){
+                chaves.add(Integer.parseInt(linha));
+            }
+        }
+        else if (tipo.equals("csv")){
+            arq.readLine();
+            while((linha = arq.readLine()) != null){
+                String[] info = linha.split(",");
+                chaves.add(Integer.parseInt(info[0]));
+            }
         }
 
         arq.close();
