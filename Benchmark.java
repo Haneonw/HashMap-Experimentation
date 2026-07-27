@@ -1,6 +1,7 @@
 import hash.*;
 import java.util.ArrayList;
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.InputStreamReader;
 import java.io.IOException;
@@ -8,13 +9,23 @@ import java.io.IOException;
 public class Benchmark{
     public static void main(String[] args)throws IOException{
         BufferedReader entrada = new BufferedReader(new InputStreamReader(System.in));
+        int tamanho = 0;
 
         // Usuário escolhe qual vai ser o tamanho fixo da tabela hash.
-        System.out.print("Tamanho da tabela: ");
+        while (true) {
+            try {
+                System.out.print("Tamanho da tabela: ");
+                tamanho = Integer.parseInt(entrada.readLine());
 
+                if (tamanho > 0)
+                    break;
+
+            } catch (NumberFormatException e) {
+                System.out.println("Digite um número inteiro positivo.");
+            }
+        }
+        
         ArrayList<Integer> chaves = new ArrayList<>();
-
-        int tamanho = Integer.parseInt(entrada.readLine());   
         
         // Coleta de chaves de um arquivo.
         System.out.print("Escolha um arquivo com as chaves: ");
@@ -22,6 +33,8 @@ public class Benchmark{
         String arquivo = entrada.readLine();
         
         chaves = carregarChaves(arquivo);
+
+        if (chaves == null) return;
 
         // Todas as funções hash que serão testadas:
         FuncaoHash modular = new Modular(tamanho);
@@ -44,30 +57,53 @@ public class Benchmark{
         entrada.close();
    }
 
-    private static ArrayList<Integer> carregarChaves(String arquivo) throws IOException
-   {
-        BufferedReader arq = new BufferedReader(new FileReader("dados/" + arquivo));
+    private static ArrayList<Integer> carregarChaves(String arquivo) throws IOException{
+        FileReader arq;
+        try{
+            arq = new FileReader("dados/" + arquivo);
+        }catch (FileNotFoundException e){
+            System.out.println("Arquivo não encontrado.");
+            return null;
+        }
+
+        BufferedReader leitorArq = new BufferedReader(arq);
 
         ArrayList<Integer> chaves = new ArrayList<>();
 
-        String tipo = arquivo.substring(arquivo.length() - 3);
-
         String linha;
-        if(tipo.equals("txt")){
-            while((linha = arq.readLine()) != null){
-                chaves.add(Integer.parseInt(linha));
+        try{
+            if(arquivo.endsWith(".txt")){
+                while((linha = leitorArq.readLine()) != null){
+                    chaves.add(Integer.parseInt(linha));
+                }
             }
-        }
-        else if (tipo.equals("csv")){
-            arq.readLine();
-            while((linha = arq.readLine()) != null){
-                String[] info = linha.split(",");
-                chaves.add(Integer.parseInt(info[0]));
+            else if (arquivo.endsWith(".csv")){
+                leitorArq.readLine();
+                while((linha = leitorArq.readLine()) != null){
+                    String[] info = linha.split(",");
+                    chaves.add(Integer.parseInt(info[0]));
+                }
+            } 
+            else {
+                System.out.println("Formato não suportado.");
+                fecha(arq,leitorArq);
+                return null;
             }
-        }
+        }catch (Exception e){
 
-        arq.close();
+            System.out.println("Formato do arquivo inválido.");
+            fecha(arq,leitorArq);
+            return null;
+        }
+        fecha(arq,leitorArq);
 
         return chaves;
+   }
+
+    private static void fecha(FileReader arq, BufferedReader leitor){
+        try{
+            arq.close();
+            leitor.close();
+        }catch(Exception e){}
    }
 }
