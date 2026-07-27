@@ -1,6 +1,7 @@
 import hash.*;
 import java.util.ArrayList;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -56,7 +57,9 @@ public class Benchmark{
             System.out.println(funcao);
         }
 
-        PrintWriter writer = new PrintWriter(new FileWriter("resultados.csv"));
+        String nome = arquivo.substring(0, arquivo.lastIndexOf('.'));
+
+        PrintWriter writer = new PrintWriter(new FileWriter("resultados_" +nome+".csv"));
 
         writer.println("Funcao,Dataset,TamanhoTabela,Colisoes,CV,MaiorCadeia,MediaCadeia");
 
