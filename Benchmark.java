@@ -1,8 +1,10 @@
 import hash.*;
 import java.util.ArrayList;
 import java.io.BufferedReader;
+import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.io.IOException;
 
@@ -54,7 +56,26 @@ public class Benchmark{
             System.out.println(funcao);
         }
 
-        entrada.close();
+        PrintWriter writer = new PrintWriter(new FileWriter("resultados.csv"));
+
+        writer.println("Funcao,Dataset,TamanhoTabela,Colisoes,CV,MaiorCadeia,MediaCadeia");
+
+        for (FuncaoHash f : funcoes) {
+
+            // executa benchmark
+
+            writer.println(
+                f.getNomeFunc() + "," +
+                arquivo + "," +
+                tamanho + "," +
+                f.getColisoes() + "," +
+                f.getCoeficienteVariacao() + "," +
+                f.getMaiorCadeia() + "," +
+                f.getMediaCadeia()
+            );
+        }
+
+        writer.close();
    }
 
     private static ArrayList<Integer> carregarChaves(String arquivo) throws IOException{

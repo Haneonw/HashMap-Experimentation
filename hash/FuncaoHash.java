@@ -158,17 +158,36 @@ public abstract class FuncaoHash {
         return maior;
     }
 
+    private int mediaCadeia(){
+        int soma = 0;
+        int cadeias = 0;
+        for(ArrayList<InfoObjeto> lista : this.tabela )
+        {
+            if(lista != null){
+                soma += lista.size();
+                cadeias++; 
+            }
+        }
+
+        return soma/cadeias;
+    }
+
+    public int getMediaCadeia(){
+        return mediaCadeia();
+    }
+
     protected abstract int hash(int chave);
 
     @Override
     public String toString(){ //Medição da função hash.
         return "\n" +
         "Função: " + getNomeFunc() + "\n" +
-        "Elementos: " + this.numElementos + "\n" +
-        "Colisões: " + this.colisoes + "\n" +
+        "Elementos: " + getNumElementos() + "\n" +
+        "Colisões: " + getColisoes() + "\n" +
         "Coeficiente de variação: " +  String.format("%.2f", getCoeficienteVariacao() * 100) + "%\n" +
         "Fator de carga: " + String.format("%.2f", getFatorCarga()) + "\n" +
-        "Maior Cadeia: " + getMaiorCadeia() + "\n";
+        "Maior Cadeia: " + getMaiorCadeia() + "\n" +
+        "Média Cadeia: " + getMediaCadeia() + "\n";
     }
 
     public String getNomeFunc() {
