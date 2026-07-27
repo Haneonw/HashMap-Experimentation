@@ -29,8 +29,7 @@ public class Benchmark{
         FuncaoHash meioDoQuadrado = new MeioDoQuadrado(tamanho);
         FuncaoHash murmurHash3 = new MurmurHash3(tamanho);
         FuncaoHash folding = new Folding(tamanho);
-        FuncaoHash universal = new Universal(tamanho);
-        FuncaoHash[] funcoes = {modular, multiplicativa, meioDoQuadrado, murmurHash3, universal, folding};
+        FuncaoHash[] funcoes = {modular, multiplicativa, meioDoQuadrado, murmurHash3, folding};
 
         // Inserindo as chaves em cada tabela hash.
         for(FuncaoHash funcao: funcoes){
