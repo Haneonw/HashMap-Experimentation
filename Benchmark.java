@@ -96,13 +96,13 @@ public class Benchmark{
 
         String linha;
         try{
+            leitorArq.readLine();
             if(arquivo.endsWith(".txt")){
                 while((linha = leitorArq.readLine()) != null){
                     chaves.add(Integer.parseInt(linha));
                 }
             }
             else if (arquivo.endsWith(".csv")){
-                leitorArq.readLine();
                 while((linha = leitorArq.readLine()) != null){
                     String[] info = linha.split(",");
                     chaves.add(Integer.parseInt(info[0]));
