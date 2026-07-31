@@ -1,4 +1,4 @@
-package hash;
+package src.main.java.hash;
 public class InfoObjeto {
     private int chave;
     private String info;

@@ -1,4 +1,4 @@
-package hash;
+package src.main.java.hash;
 /**
  * Meio Do Quadrado
  * 

@@ -37,7 +37,7 @@ CORES = {
     "MurmurHash3": "#C44E52",
     "Folding": "#8172B2",
 }
-ORDEM_FUNCOES = ["Modular", "Multiplicativa", "MeioDoQuadrado", "MurmurHash3", "Folding"]
+ORDEM_FUNCOES = ["Modular", "Multiplicativa", "MeioDoQuadrado", "Folding", "MurmurHash3"]
 
 RESULTADOS_DIR = "resultados"
 OUT_DIR = "graficos"

@@ -1,7 +1,9 @@
-import hash.*;
+package src.main.java;
 import java.util.ArrayList;
+
+import src.main.java.hash.*;
+
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.PrintWriter;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -45,7 +47,7 @@ public class Benchmark{
         FuncaoHash meioDoQuadrado = new MeioDoQuadrado(tamanho);
         FuncaoHash murmurHash3 = new MurmurHash3(tamanho);
         FuncaoHash folding = new Folding(tamanho);
-        FuncaoHash[] funcoes = {modular, multiplicativa, meioDoQuadrado, murmurHash3, folding};
+        FuncaoHash[] funcoes = {modular, multiplicativa, meioDoQuadrado,  folding, murmurHash3};
 
         // Inserindo as chaves em cada tabela hash.
         for(FuncaoHash funcao: funcoes){
