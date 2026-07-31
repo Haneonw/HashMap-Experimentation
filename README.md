@@ -7,10 +7,15 @@ usando encadeamento separado.
 ## Organização
 
 hash/ → implementações das funções hash
+
 dados/ → datasets de entrada (sequenciais, aleatórios, reais)
+
 resultados/ → CSVs gerados pelo benchmark (1 por dataset)
+
 scripts/ → plot_resultados.py (geração dos gráficos)
+
 graficos/ → saída dos gráficos (não versionado)
+
 Benchmark.java → executa o benchmark e gera os CSVs
 
 ## Como rodar
