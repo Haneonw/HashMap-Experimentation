@@ -142,6 +142,32 @@ def figura_sintetico_vs_real(df):
     plt.savefig(f"{OUT_DIR}/4_sintetico_vs_real.png")
     plt.close()
 
+#Figura 5: Gráfico dos casos isolados
+def caso_isolado(df): 
+    metricas = ["Colisoes","CV","MaiorCadeia","MenorCadeia"]
+    for dataset in df["Dataset"].unique():
+        dados = df[df["Dataset"] == dataset]
+        fig, axes = plt.subplots(4, 1, figsize=(15, 15), constrained_layout=True)
+        axes[0].bar(dados["Funcao"], dados["Colisoes"], color=cores_para(dados["Funcao"]))
+        axes[0].set_title("Colisoes")
+        axes[0].set_ylabel("Número de colisões")
+        
+        axes[1].bar(dados["Funcao"], dados["CV"] * 100, color=cores_para(dados["Funcao"]))
+        axes[1].set_title("Coeficiente de variação")
+        axes[1].set_ylabel("CV (%)")
+        
+        axes[2].bar(dados["Funcao"], dados["MaiorCadeia"], color=cores_para(dados["Funcao"]))
+        axes[2].set_title("Maior Cadeia")
+        axes[2].set_ylabel("Elementos")
+        
+        axes[3].bar(dados["Funcao"], dados["MediaCadeia"],color=cores_para(dados["Funcao"]))
+        axes[3].set_title("Media Cadeia")
+        axes[3].set_ylabel("Elementos")
+        
+        plt.savefig(f"{OUT_DIR}/{dataset}.png")
+        plt.close()
+        
+
 
 if __name__ == "__main__":
     df = carregar_dados()
@@ -160,5 +186,6 @@ if __name__ == "__main__":
         nome_arquivo="3_escalabilidade_maior_cadeia",
     )
     figura_sintetico_vs_real(df)
+    caso_isolado(df)
 
     print(f"Gráficos salvos em: {OUT_DIR}/")

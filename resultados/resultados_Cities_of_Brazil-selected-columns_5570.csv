@@ -1,0 +1,6 @@
+Funcao,Dataset,TamanhoTabela,Colisoes,CV,MaiorCadeia,MediaCadeia
+Modular,Cities_of_Brazil-selected-columns.csv,5570,1854,0.9085668474787766,5,1
+Multiplicativa,Cities_of_Brazil-selected-columns.csv,5570,2263,1.0964280179581942,6,1
+MeioDoQuadrado,Cities_of_Brazil-selected-columns.csv,5570,2058,1.010359269162591,6,1
+Folding,Cities_of_Brazil-selected-columns.csv,5570,4036,2.2256865077723127,15,3
+MurmurHash3,Cities_of_Brazil-selected-columns.csv,5570,2069,1.0092925513541802,7,1

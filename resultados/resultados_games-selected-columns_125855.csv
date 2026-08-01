@@ -1,0 +1,6 @@
+Funcao,Dataset,TamanhoTabela,Colisoes,CV,MaiorCadeia,MediaCadeia
+Modular,games-selected-columns.csv,125855,100638,2.1637027959132804,13,4
+Multiplicativa,games-selected-columns.csv,125855,50403,1.0263153846850035,6,1
+MeioDoQuadrado,games-selected-columns.csv,125855,46306,1.0004091173762035,14,1
+Folding,games-selected-columns.csv,125855,44882,0.9381068679259073,5,1
+MurmurHash3,games-selected-columns.csv,125855,46313,1.0026859958279017,8,1
