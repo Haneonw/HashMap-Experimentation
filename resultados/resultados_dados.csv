@@ -1,6 +1,0 @@
-Funcao,Dataset,TamanhoTabela,Colisoes,CV,MaiorCadeia,MediaCadeia
-Modular,dados.txt,300,63,2.817800560721076,4,2
-Multiplicativa,dados.txt,300,31,2.0248456731316615,3,1
-MeioDoQuadrado,dados.txt,300,84,5.576737397439455,25,6
-MurmurHash3,dados.txt,300,18,1.7720045146669376,3,1
-Folding,dados.txt,300,62,2.785677655436827,4,2

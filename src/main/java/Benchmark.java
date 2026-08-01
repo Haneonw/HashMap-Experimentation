@@ -61,7 +61,7 @@ public class Benchmark{
 
         String nome = arquivo.substring(0, arquivo.lastIndexOf('.'));
 
-        PrintWriter writer = new PrintWriter(new FileWriter("resultados/resultados_" + nome +".csv"));
+        PrintWriter writer = new PrintWriter(new FileWriter("resultados/resultados_" + nome + "_" + tamanho+".csv"));
 
         writer.println("Funcao,Dataset,TamanhoTabela,Colisoes,CV,MaiorCadeia,MediaCadeia");
 
