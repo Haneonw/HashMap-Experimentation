@@ -65,38 +65,15 @@ def carregar_dados():
     df["Tipo"] = df["Dataset"].apply(
         lambda x: "Sequencial" if "sequencial" in x.lower()
         else "Aleatório" if "aleatorio" in x.lower()
-        else "Real"
+        else "ID jogos" if "games" in x.lower()
+        else "ID cidades"
     )
     df["Funcao"] = pd.Categorical(df["Funcao"], categories=ORDEM_FUNCOES, ordered=True)
     return df.sort_values("Funcao")
 
 
-# Figura 1: Comparação geral entre funções (agregado)
-def figura_comparacao_geral(df):
-    agg = df.groupby("Funcao", observed=True).agg(
-        ColisoesMedia=("Colisoes", "mean"),
-        CVMedio=("CV", "mean"),
-    ).reindex(ORDEM_FUNCOES).dropna(how="all")
 
-    fig, axes = plt.subplots(1, 2, figsize=(11, 4.5))
-
-    axes[0].bar(agg.index, agg["ColisoesMedia"], color=cores_para(agg.index))
-    axes[0].set_title("Colisões médias")
-    axes[0].set_ylabel("Colisões (média entre datasets)")
-    axes[0].tick_params(axis="x", rotation=20)
-
-    axes[1].bar(agg.index, agg["CVMedio"] * 100, color=cores_para(agg.index))
-    axes[1].set_title("Coeficiente de Variação médio")
-    axes[1].set_ylabel("CV (%)")
-    axes[1].tick_params(axis="x", rotation=20)
-
-    fig.suptitle("Comparação geral entre funções hash (média de todos os datasets testados)")
-    plt.tight_layout()
-    plt.savefig(f"{OUT_DIR}/1_comparacao_geral.png")
-    plt.close()
-
-
-# Figura 2: Escalabilidade — colisões x N
+# Figura 1: Escalabilidade — colisões x N
 def figura_escalabilidade(df, metrica, titulo, ylabel, nome_arquivo):
     tipos = [t for t in ["Sequencial", "Aleatório"] if df[df["Tipo"] == t]["N"].nunique() >= 2]
     if not tipos:
@@ -125,25 +102,22 @@ def figura_escalabilidade(df, metrica, titulo, ylabel, nome_arquivo):
     plt.close()
 
 
-# Figura 4: Sintético vs. Real
-def figura_sintetico_vs_real(df):
-    if df["Tipo"].nunique() < 2:
-        print("[aviso] dados insuficientes para comparação sintético vs. real")
-        return
-    agrupado = df.groupby(["Funcao", "Tipo"], observed=True)["Colisoes"].mean().unstack()
+# Figura 2: Comparção CV, casos.
+def figura_comparacaoCV(df):
+    agrupado = df.groupby(["Funcao", "Tipo"], observed=True)["CV"].mean().unstack() * 100
     agrupado = agrupado.reindex([f for f in ORDEM_FUNCOES if f in agrupado.index])
     agrupado.plot(kind="bar", figsize=(8, 5), color=None)
-    plt.ylabel("Colisões (média)")
+    plt.ylabel("CV (%)")
     plt.xlabel("Função hash")
-    plt.title("Colisões médias: dados sintéticos vs. reais")
+    plt.title("CV em cada caso")
     plt.xticks(rotation=20)
     plt.legend(title="Tipo de dado")
     plt.tight_layout()
-    plt.savefig(f"{OUT_DIR}/4_sintetico_vs_real.png")
+    plt.savefig(f"{OUT_DIR}/4_comparaçãoCV.png")
     plt.close()
 
-#Figura 5: Gráfico dos casos isolados
-def caso_isolado(df): 
+#Figura 3: Gráficos isolados.
+def figura_caso_isolado(df): 
     metricas = ["Colisoes","CV","MaiorCadeia","MenorCadeia"]
     for dataset in df["Dataset"].unique():
         dados = df[df["Dataset"] == dataset]
@@ -172,7 +146,7 @@ def caso_isolado(df):
 if __name__ == "__main__":
     df = carregar_dados()
 
-    figura_comparacao_geral(df)
+    figura_comparacaoCV(df)
     figura_escalabilidade(
         df, metrica="Colisoes",
         titulo="Escalabilidade das colisões",
@@ -185,7 +159,6 @@ if __name__ == "__main__":
         ylabel="Tamanho da maior cadeia",
         nome_arquivo="3_escalabilidade_maior_cadeia",
     )
-    figura_sintetico_vs_real(df)
-    caso_isolado(df)
+    figura_caso_isolado(df)
 
     print(f"Gráficos salvos em: {OUT_DIR}/")
