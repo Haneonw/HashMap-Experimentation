@@ -71,7 +71,7 @@ pasta `dados/`), e gera um novo CSV em `resultados/`.
 **3. Gerar os gráficos** a apartir de todos resultados consolidados:
 
 ```bash
-   python3 scripts/plot_resultados.py
+   python3 src/main/scripts/plot_resultados.py
 ```
 
 lê todos os CSVs de `resultados/` automaticamente e salva as figuras em `graficos/`
