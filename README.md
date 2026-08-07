@@ -57,7 +57,7 @@ caso e as ameaças à validade — está no documento linkado acima.
 
 ## Instruções de execução
 
-**1. Compilar e executar o benchmark** (repetir para cada dataset desejado):
+**1. Compilar e executar o benchmark no diretório da raiz do projeto** (repetir para cada dataset desejado):
 
 ```bash
    javac src/main/java/hash/*.java src/main/java/Benchmark.java
