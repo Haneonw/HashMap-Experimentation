@@ -10,10 +10,23 @@ package src.main.java.hash;
  * no calculo modular gera uma distribuição melhor, por conta da propriedade dos números primos.
  */
 public class Modular extends FuncaoHash{
+
+    /**
+     * Cria uma nova instância da função hash modular.
+     *
+     * @param size tamanho da tabela hash
+     */
     public Modular(int size){
         super(size);
     }
 
+    /**
+     * Calcula o índice hash da chave utilizando o método modular, ou seja,
+     * o resto da divisão da chave pelo tamanho da tabela.
+     *
+     * @param chave a chave a ser transformada
+     * @return índice válido na tabela hash
+     */
     @Override
     protected int hash(int chave) {
         // Dividindo a chave pelo o tamanho da tabela, retornando um indice válido. 

@@ -10,6 +10,12 @@ package src.main.java.hash;
  */
 
 public class MurmurHash3 extends FuncaoHash {
+
+    /**
+     * Cria uma nova instância da função hash MurmurHash3.
+     *
+     * @param size tamanho da tabela hash
+     */
     public MurmurHash3(int size) {
         super(size);
     }
@@ -18,7 +24,8 @@ public class MurmurHash3 extends FuncaoHash {
     private final int C1 = 0xcc9e2d51;
     private final int C2 = 0x1b873593;
 
-    //Utiliza uma semente fixa tendo em vista que o objetivo é apenas comparar a função de hash com as outras implementações
+    //Utiliza uma semente fixa tendo em vista que o objetivo é apenas comparar a função de
+    //hash com as outras implementações
     private final int seed = 0;
 
     /**

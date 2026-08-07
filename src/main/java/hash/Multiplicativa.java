@@ -24,10 +24,24 @@ public class Multiplicativa extends FuncaoHash{
      */
     private static final double A = (Math.sqrt(5) - 1) / 2;
 
+    /**
+     * Cria uma nova instância da função hash multiplicativa.
+     *
+     * @param size tamanho da tabela hash
+     */
     public Multiplicativa(int size){
         super(size);
     }
 
+    /**
+     * Calcula o índice hash da chave utilizando o método da multiplicação
+     * de Knuth, multiplicando a chave pela constante {@link #A}, extraindo
+     * a parte fracionária do resultado e escalando-a pelo tamanho da
+     * tabela.
+     *
+     * @param chave a chave a ser transformada
+     * @return índice válido na tabela hash
+     */
     @Override
     protected int hash(int chave) {
         //passo 1: multiplica a chave pela constante A

@@ -10,22 +10,27 @@ import java.util.ArrayList;
  * comuns, como atributos e implementações de métodos como equals() e toString().
  * Entretanto, cada função possui sua própria implementação do hash. Por esse motivo, foi 
  * utilizada uma classe abstrata em vez de uma interface.
- * Uma colisão é registrada sempre que uma nova chave distinta é inserida em um bucket que já contém pelo menos um elemento.
+ * Uma colisão é registrada sempre que uma nova chave distinta é inserida em um bucket que já
+ * contém pelo menos um elemento.
  *
  * Foi utilizado encadeamento separado, também denominado endereçamento fechado,
  * como método de lidar com as colisões, pois não precisaremos lidar com Resize e Rehash. 
  */
 public abstract class FuncaoHash {
 
-    /**
-     * Vamos medir colisões, espalhamento. Seria interessante pesquisar sobre efeito avalanche caso haja tempo e como bonus adicionar o tempo de exec, por mais que joão arthur falar q não faz mt sentido.
-     */
+
     private int colisoes;
     private ArrayList<InfoObjeto>[] tabela;
     private int[] distribuicao;
     protected int size; // escolher um size.
     protected int numElementos; // número de elementos inseridos na tabela. útil para saber fator de carga.
 
+    /**
+     * Cria uma nova função hash com uma tabela de tamanho fixo.
+     *
+     * @param size tamanho da tabela hash, deve ser maior que 0
+     * @throws IllegalArgumentException se {@code size} for menor ou igual a 0
+     */
     public FuncaoHash(int size){
         if(size <= 0){
             throw new IllegalArgumentException("Tamanho deve ser maior que 0");
@@ -36,6 +41,16 @@ public abstract class FuncaoHash {
         this.tabela = new ArrayList[size];
     }
 
+    /**
+     * Insere um par chave/valor na tabela hash.
+     *
+     * Caso a chave já exista na tabela, o valor associado é atualizado e
+     * nenhuma colisão é contabilizada. Caso a chave seja nova e o bucket
+     * calculado já contenha algum elemento, uma colisão é registrada.
+     *
+     * @param chave a chave a ser inserida
+     * @param valor o valor a ser associado à chave
+     */
     public void put(int chave, String valor){
         int hash = hash(chave);
         ArrayList<InfoObjeto> lista = this.tabela[hash];
@@ -64,6 +79,13 @@ public abstract class FuncaoHash {
         }
     }
 
+    /**
+     * Remove o elemento associado à chave informada, caso ele exista.
+     *
+     * @param chave a chave do elemento a ser removido
+     * @return o {@link InfoObjeto} removido, ou {@code null} caso a chave
+     * não seja encontrada na tabela
+     */
     public InfoObjeto remove(int chave){
         int hash = hash(chave);
         ArrayList<InfoObjeto> lista = this.tabela[hash];
@@ -84,6 +106,13 @@ public abstract class FuncaoHash {
         return retorno;
     }
 
+    /**
+     * Busca o elemento associado à chave informada.
+     *
+     * @param chave a chave a ser buscada
+     * @return o {@link InfoObjeto} correspondente à chave, ou {@code null}
+     *         caso a chave não esteja presente na tabela
+     */
     public InfoObjeto get(int chave){
         int hash = hash(chave);
         ArrayList<InfoObjeto> lista = this.tabela[hash];
@@ -103,8 +132,14 @@ public abstract class FuncaoHash {
     }
 
     /**
-     * 
-     * @return
+     * Calcula o coeficiente de variação (desvio padrão dividido pela média)
+     * da distribuição de elementos entre os buckets da tabela hash.
+     *
+     * Quanto menor o coeficiente de variação, mais uniforme é a distribuição
+     * das chaves entre os buckets da tabela.
+     *
+     * @return o coeficiente de variação da distribuição, ou {@code 0.0} caso
+     * a média de elementos por bucket seja igual a 0
      */
     private double espalhamento(){
         double soma = 0;
@@ -126,26 +161,61 @@ public abstract class FuncaoHash {
         }
         return desvioPadrão / media;
     }
+
+    /**
+     * Retorna o número total de colisões ocorridas na tabela hash.
+     *
+     * @return quantidade de colisões registradas
+     */
     public int getColisoes(){
         return this.colisoes;
     }
 
+    /**
+     * Retorna o coeficiente de variação da distribuição de elementos entre
+     * os buckets da tabela hash, utilizado como medida de espalhamento.
+     *
+     * @return o coeficiente de variação da distribuição
+     */
     public double getCoeficienteVariacao(){
         return espalhamento();
     }
 
+    /**
+     * Retorna o número de elementos atualmente inseridos na tabela hash.
+     *
+     * @return quantidade de elementos inseridos
+     */
     public int getNumElementos(){
         return this.numElementos;
     }
 
+    /**
+     * Retorna o fator de carga da tabela hash, ou seja, a razão entre o
+     * número de elementos inseridos e o tamanho da tabela.
+     *
+     * @return o fator de carga da tabela
+     */
     public double getFatorCarga(){
         return (double) this.numElementos / this.size;
     }
 
+    /**
+     * Retorna o tamanho da maior cadeia (bucket com mais elementos) presente
+     * na tabela hash.
+     *
+     * @return o tamanho da maior cadeia de elementos
+     */
     public int getMaiorCadeia(){
         return maiorCadeia();
     }
 
+    /**
+     * Calcula o tamanho da maior cadeia (bucket com mais elementos) entre
+     * todos os buckets da tabela hash.
+     *
+     * @return o tamanho da maior cadeia encontrada
+     */
     private int maiorCadeia(){
         int maior = 0;
         for(ArrayList<InfoObjeto> lista : this.tabela )
@@ -158,6 +228,12 @@ public abstract class FuncaoHash {
         return maior;
     }
 
+    /**
+     * Calcula a média de elementos por cadeia (bucket) não vazia da tabela
+     * hash.
+     *
+     * @return a média de elementos das cadeias não vazias
+     */
     private int mediaCadeia(){
         int soma = 0;
         int cadeias = 0;
@@ -176,8 +252,25 @@ public abstract class FuncaoHash {
         return mediaCadeia();
     }
 
+    /**
+     * Calcula o índice da tabela hash correspondente a uma chave.
+     *
+     * Cada subclasse concreta deve implementar seu próprio algoritmo de
+     * espalhamento (hashing), retornando sempre um índice válido dentro dos
+     * limites da tabela.
+     *
+     * @param chave a chave a ser transformada em um índice
+     * @return um índice válido dentro do tamanho da tabela hash
+     */
     protected abstract int hash(int chave);
 
+    /**
+     * Retorna uma representação textual com as métricas de desempenho da
+     * função hash, incluindo número de elementos, colisões, coeficiente de
+     * variação, fator de carga, maior cadeia e média das cadeias.
+     *
+     * @return uma {@code String} formatada com as métricas medidas
+     */
     @Override
     public String toString(){ //Medição da função hash.
         return "\n" +
@@ -190,6 +283,12 @@ public abstract class FuncaoHash {
         "Média Cadeia: " + getMediaCadeia() + "\n";
     }
 
+    /**
+     * Retorna o nome da função hash, obtido a partir do nome simples da
+     * subclasse concreta em execução.
+     *
+     * @return o nome da função hash
+     */
     public String getNomeFunc() {
         return getClass().getSimpleName();
     }
