@@ -183,6 +183,21 @@ def figura_comparacaoCV(df):
     plt.tight_layout()
     plt.savefig(f"{OUT_DIR}/4_comparaçãoCV.png")
     plt.close()
+    
+    # Figura 2: Comparção CV, casos.
+def figura_comparacaoMediaCadeia(df):
+    agrupado = df.groupby(["Funcao", "Tipo"], observed=True)["MediaCadeia"].mean().unstack() * 100
+    agrupado = agrupado.reindex([f for f in ORDEM_FUNCOES if f in agrupado.index])
+    agrupado.plot(kind="bar", figsize=(8, 5), color=None)
+    plt.ylabel("Elementos")
+    plt.xlabel("Função hash")
+    plt.title("Media da cadeia em cada caso")
+    plt.xticks(rotation=20)
+    plt.legend(title="Tipo de dado")
+    plt.tight_layout()
+    plt.savefig(f"{OUT_DIR}/5_MediaCadeia.png")
+    plt.close()
+
 
 #Figura 3: Gráficos isolados.
 def figura_caso_isolado(df): 
@@ -234,5 +249,5 @@ if __name__ == "__main__":
         nome_arquivo="1_escalabilidade_CV",
     )
     figura_caso_isolado(df)
-
+    figura_comparacaoMediaCadeia(df)
     print(f"Gráficos salvos em: {OUT_DIR}/")

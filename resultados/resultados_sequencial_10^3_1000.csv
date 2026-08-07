@@ -1,0 +1,6 @@
+Funcao,Dataset,TamanhoTabela,Colisoes,CV,MaiorCadeia,MediaCadeia
+Modular,sequencial_10^3.txt,1000,0,0.0,1,1
+Multiplicativa,sequencial_10^3.txt,1000,109,0.4669047011971501,2,1
+MeioDoQuadrado,sequencial_10^3.txt,1000,297,0.8786353054595518,4,1
+Folding,sequencial_10^3.txt,1000,0,0.0,1,1
+MurmurHash3,sequencial_10^3.txt,1000,354,0.9969954864491614,6,1
