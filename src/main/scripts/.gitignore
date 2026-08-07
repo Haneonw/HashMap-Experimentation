@@ -1,2 +1,3 @@
-*.class
+src/main/java/hash*.class
+src/main/java/*.class
 graficos/
