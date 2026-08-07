@@ -9,7 +9,7 @@ tratamento de colisões.
 Projeto desenvolvido ára as disciplinas de Estrutura de Dados e Algoritmos (EDA) e Laboratório de Estrutura de Dados e Algoritmos (LEDA) - UFCG, sob orientações do docente João Arthur Brunet Monteiro.
 
 **Discentes:**
-Deborah dos Santos Araujo,
+Deborah dos Santos Araujo
 Ewerton Danilo Gouveia Tavares
 Hanna Martins Queiroga.
 
@@ -32,7 +32,7 @@ A fundamentação teórica, a metodologia completa, a análise detalhada dos
 resultados e as ameaças à validade estão documentadas no relatório do
 experimento:
 
-**[Comparação Experimental entre Funções Hash — documento completo]:https://docs.google.com/document/d/1rKdVZx1dZ-iagOMbKEOZDX5T3uS06RAF4hM2ymFpwY4/edit?usp=sharing
+**[Comparação Experimental entre Funções Hash — documento completo]:** https://docs.google.com/document/d/1rKdVZx1dZ-iagOMbKEOZDX5T3uS06RAF4hM2ymFpwY4/edit?usp=sharing
 
 ## Resumo dos resultados
 
@@ -76,12 +76,12 @@ pasta `dados/`), e gera um novo CSV em `resultados/`.
 
 lê todos os CSVs de `resultados/` automaticamente e salva as figuras em `graficos/`
 
-##Tecnologias
+## Tecnologias
 
 - Java 17+
 - Pyhton 3 (panda, matplotlib, numpy)
 
-##Referências
+## Referências
 
 As referências bibliográficas completas (Cormen et al., Knuth, Appleby,
 Goodrich et al., Montgomery e Runger) estão listadas no documento completo do
