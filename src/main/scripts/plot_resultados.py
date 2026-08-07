@@ -172,7 +172,8 @@ def figura_comparacaoCV(df):
     Returns:
         None. A figura gerada é salva em disco e a função não retorna valor.
     """
-    agrupado = df.groupby(["Funcao", "Tipo"], observed=True)["CV"].mean().unstack() * 100
+    df_filtrado = df[(~df["Tipo"].isin(["Sequencial", "Aleatório"])) |(df["N"] == 1_000_000)]
+    agrupado = df_filtrado.groupby(["Funcao", "Tipo"],   observed=True)["CV"].mean().unstack() * 100
     agrupado = agrupado.reindex([f for f in ORDEM_FUNCOES if f in agrupado.index])
     agrupado.plot(kind="bar", figsize=(8, 5), color=None)
     plt.ylabel("CV (%)")
@@ -186,7 +187,8 @@ def figura_comparacaoCV(df):
     
 # Figura 3: Media Cadeia, casos.
 def figura_comparacaoMediaCadeia(df):
-    agrupado = df.groupby(["Funcao", "Tipo"], observed=True)["MediaCadeia"].mean().unstack()
+    df_filtrado = df[(~df["Tipo"].isin(["Sequencial", "Aleatório"])) |(df["N"] == 1_000_000)]
+    agrupado = df_filtrado.groupby(["Funcao", "Tipo"], observed=True)["MediaCadeia"].mean().unstack()
     agrupado = agrupado.reindex([f for f in ORDEM_FUNCOES if f in agrupado.index])
     agrupado.plot(kind="bar", figsize=(8, 5), color=None)
     plt.ylabel("Elementos")
@@ -200,7 +202,8 @@ def figura_comparacaoMediaCadeia(df):
     
 # Figura 4: Maior Cadeia, casos.
 def figura_comparacaoMaiorCadeia(df):
-    agrupado = df.groupby(["Funcao", "Tipo"], observed=True)["MaiorCadeia"].mean().unstack()
+    df_filtrado = df[(~df["Tipo"].isin(["Sequencial", "Aleatório"])) |(df["N"] == 1_000_000)]
+    agrupado = df_filtrado.groupby(["Funcao", "Tipo"], observed=True)["MaiorCadeia"].mean().unstack()
     agrupado = agrupado.reindex([f for f in ORDEM_FUNCOES if f in agrupado.index])
     agrupado.plot(kind="bar", figsize=(8, 5), color=None)
     plt.ylabel("Elementos")
