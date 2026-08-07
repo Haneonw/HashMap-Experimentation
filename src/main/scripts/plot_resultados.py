@@ -184,9 +184,9 @@ def figura_comparacaoCV(df):
     plt.savefig(f"{OUT_DIR}/4_comparaçãoCV.png")
     plt.close()
     
-    # Figura 2: Comparção CV, casos.
+# Figura 3: Media Cadeia, casos.
 def figura_comparacaoMediaCadeia(df):
-    agrupado = df.groupby(["Funcao", "Tipo"], observed=True)["MediaCadeia"].mean().unstack() * 100
+    agrupado = df.groupby(["Funcao", "Tipo"], observed=True)["MediaCadeia"].mean().unstack()
     agrupado = agrupado.reindex([f for f in ORDEM_FUNCOES if f in agrupado.index])
     agrupado.plot(kind="bar", figsize=(8, 5), color=None)
     plt.ylabel("Elementos")
@@ -196,6 +196,20 @@ def figura_comparacaoMediaCadeia(df):
     plt.legend(title="Tipo de dado")
     plt.tight_layout()
     plt.savefig(f"{OUT_DIR}/5_MediaCadeia.png")
+    plt.close()
+    
+# Figura 4: Maior Cadeia, casos.
+def figura_comparacaoMaiorCadeia(df):
+    agrupado = df.groupby(["Funcao", "Tipo"], observed=True)["MaiorCadeia"].mean().unstack()
+    agrupado = agrupado.reindex([f for f in ORDEM_FUNCOES if f in agrupado.index])
+    agrupado.plot(kind="bar", figsize=(8, 5), color=None)
+    plt.ylabel("Elementos")
+    plt.xlabel("Função hash")
+    plt.title("Maior cadeia em cada caso")
+    plt.xticks(rotation=20)
+    plt.legend(title="Tipo de dado")
+    plt.tight_layout()
+    plt.savefig(f"{OUT_DIR}/6_MaiorCadeia.png")
     plt.close()
 
 
@@ -230,6 +244,8 @@ if __name__ == "__main__":
     df = carregar_dados()
 
     figura_comparacaoCV(df)
+    figura_comparacaoMaiorCadeia(df)
+    figura_comparacaoMaiorCadeia(df)
     figura_escalabilidade(
         df, metrica="Colisoes",
         titulo="Escalabilidade das colisões",
@@ -249,5 +265,5 @@ if __name__ == "__main__":
         nome_arquivo="1_escalabilidade_CV",
     )
     figura_caso_isolado(df)
-    figura_comparacaoMediaCadeia(df)
+
     print(f"Gráficos salvos em: {OUT_DIR}/")
