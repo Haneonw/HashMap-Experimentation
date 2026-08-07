@@ -1,7 +1,7 @@
 # HashMap-Experimentation
 
-Comparação experimental entre cinco funções hash — **Modular**, **Multiplicativa**,
-**Meio do Quadrado**, **Folding** e **MurmurHash3** — quanto ao número de colisões,
+Comparação experimental entre cinco funções hash (**Modular**, **Multiplicativa**,
+**Meio do Quadrado**, **Folding** e **MurmurHash3**) quanto ao número de colisões,
 à qualidade da distribuição das chaves e ao comprimento das cadeias geradas,
 utilizando encadeamento separado (separate chaining) como estratégia de
 tratamento de colisões.
@@ -9,8 +9,8 @@ tratamento de colisões.
 Projeto desenvolvido ára as disciplinas de Estrutura de Dados e Algoritmos (EDA) e Laboratório de Estrutura de Dados e Algoritmos (LEDA) - UFCG, sob orientações do docente João Arthur Brunet Monteiro.
 
 **Discentes:**
-Deborah dos Santos Araujo
-Ewerton Danilo Gouveia Tavares
+Deborah dos Santos Araujo<br>
+Ewerton Danilo Gouveia Tavares<br>
 Hanna Martins Queiroga.
 
 ## Sobre o projeto
@@ -32,7 +32,7 @@ A fundamentação teórica, a metodologia completa, a análise detalhada dos
 resultados e as ameaças à validade estão documentadas no relatório do
 experimento:
 
-**[Comparação Experimental entre Funções Hash — documento completo]:** https://docs.google.com/document/d/1rKdVZx1dZ-iagOMbKEOZDX5T3uS06RAF4hM2ymFpwY4/edit?usp=sharing
+**Comparação Experimental entre Funções Hash — documento completo:** https://docs.google.com/document/d/1rKdVZx1dZ-iagOMbKEOZDX5T3uS06RAF4hM2ymFpwY4/edit?usp=sharing
 
 ## Resumo dos resultados
 
