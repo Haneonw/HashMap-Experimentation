@@ -18,12 +18,33 @@ import java.util.ArrayList;
  */
 public abstract class FuncaoHash {
 
-
+    /**
+     * Número total de colisões ocorridas na tabela hash. Uma colisão é 
+     * contabilizada sempre que uma chave nova é inserida em um bucket que 
+     * já contém pelo menos um elemento.
+     */
     private int colisoes;
+    /**
+     * Tabela hash propriamente dita. Cada posição do array representa um 
+     * bucket, implementado como uma lista para tratar colisões por 
+     * encadeamento separado.
+     */
     private ArrayList<InfoObjeto>[] tabela;
+   /**
+     * Armazena, para cada bucket, a quantidade de elementos nele presentes.
+     * Utilizado para calcular o espalhamento (coeficiente de variação) da 
+     * tabela hash.
+     */
     private int[] distribuicao;
-    protected int size; // escolher um size.
-    protected int numElementos; // número de elementos inseridos na tabela. útil para saber fator de carga.
+    /**
+     * Tamanho fixo da tabela hash, definido na criação da função hash.
+     */
+    protected int size; 
+    /**
+     * Número de elementos atualmente inseridos na tabela. Utilizado para 
+     * calcular o fator de carga da tabela hash.
+     */
+    protected int numElementos;
 
     /**
      * Cria uma nova função hash com uma tabela de tamanho fixo.
