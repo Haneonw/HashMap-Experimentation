@@ -133,13 +133,17 @@ def figura_escalabilidade(df, metrica, titulo, ylabel, nome_arquivo):
     fig, axes = plt.subplots(1, len(tipos), figsize=(6 * len(tipos), 4.5), sharey=True)
     axes = np.atleast_1d(axes)
 
+    multi = 1
+    if metrica == "CV":
+        multi = 100
+
     for ax, tipo in zip(axes, tipos):
         sub = df[df["Tipo"] == tipo].sort_values("N")
         for funcao in ORDEM_FUNCOES:
             s = sub[sub["Funcao"] == funcao]
             if s.empty:
                 continue
-            ax.plot(s["N"], s[metrica], marker="o", label=funcao, color=CORES[funcao])
+            ax.plot(s["N"], s[metrica] * multi, marker="o", label=funcao, color=CORES[funcao])
         ax.set_xscale("log")
         ax.set_xlabel("N (número de chaves, escala log)")
         ax.set_title(tipo)
@@ -222,6 +226,12 @@ if __name__ == "__main__":
         titulo="Escalabilidade do pior caso (maior cadeia)",
         ylabel="Tamanho da maior cadeia",
         nome_arquivo="3_escalabilidade_maior_cadeia",
+    )
+    figura_escalabilidade(
+        df, metrica="CV",
+        titulo="Escalabilidade do CV",
+        ylabel="CV (%)",
+        nome_arquivo="1_escalabilidade_CV",
     )
     figura_caso_isolado(df)
 

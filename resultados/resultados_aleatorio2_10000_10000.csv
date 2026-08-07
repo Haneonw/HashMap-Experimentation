@@ -1,6 +1,0 @@
-Funcao,Dataset,TamanhoTabela,Colisoes,CV,MaiorCadeia,MediaCadeia
-Modular,aleatorio2_10000.txt,10000,3717,1.010247494428964,7,1
-Multiplicativa,aleatorio2_10000.txt,10000,3687,1.0035935432235503,6,1
-MeioDoQuadrado,aleatorio2_10000.txt,10000,3692,1.0030952098380292,6,1
-Folding,aleatorio2_10000.txt,10000,3718,1.013706071797935,7,1
-MurmurHash3,aleatorio2_10000.txt,10000,3648,0.9964938534682489,6,1
